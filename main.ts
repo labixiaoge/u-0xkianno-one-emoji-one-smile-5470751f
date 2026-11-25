@@ -1,7 +1,7 @@
 // One Emoji, One Smile — make.fun entry
 // Competition: u-0xkianno-one-emoji-one-smile-5470751f
 //
-// The program writes exactly one emoji to /output/entry.txt and nothing else.
+// The program writes exactly one emoji to the output file and nothing else.
 // No network, no input, no secrets, fully deterministic: every run produces
 // the same single emoji.
 //
@@ -20,10 +20,15 @@
 //     hands (🫶), which all ask more of a stranger than a smile does.
 //  5. It has a face that smiles back. A plain sun (☀️) or a flower (🌻)
 //     is a warm symbol; the sun with a face is a warm greeting.
+//
+// Output path: /output/entry.txt by default, overridable with OUTPUT_PATH
+// for local testing; the file content is always exactly the one emoji.
 
 import { mkdirSync, writeFileSync } from "node:fs";
+import { dirname } from "node:path";
 
 const EMOJI = "🌞"; // U+1F31E SUN WITH FACE
+const OUT_PATH = process.env.OUTPUT_PATH ?? "/output/entry.txt";
 
-mkdirSync("/output", { recursive: true });
-writeFileSync("/output/entry.txt", EMOJI, "utf8");
+mkdirSync(dirname(OUT_PATH), { recursive: true });
+writeFileSync(OUT_PATH, EMOJI, "utf8");
